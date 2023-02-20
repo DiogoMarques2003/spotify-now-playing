@@ -91,7 +91,6 @@ def makeSVG(data):
         size_recent_play = len(recent_plays["items"])
         idx = random.randint(0, size_recent_play - 1)
         item = recent_plays["items"][idx]["track"]
-        raise Exception('teste')
     else:
         item = data["item"]
 
