@@ -6,6 +6,7 @@ load_dotenv(find_dotenv())
 
 import requests
 import json
+import re
 import os
 import random
 
@@ -49,16 +50,19 @@ def recentlyPlayed():
 
 def nowPlaying():
 
-    token = refreshToken()
+    try:
+        token = refreshToken()
 
-    headers = {"Authorization": f"Bearer {token}"}
+        headers = {"Authorization": f"Bearer {token}"}
 
-    response = requests.get(SPOTIFY_URL_NOW_PLAYING, headers=headers)
+        response = requests.get(SPOTIFY_URL_NOW_PLAYING, headers=headers)
 
-    if response.status_code == 204:
+        if response.status_code == 204:
+            return {}
+
+        return response.json()
+    except:
         return {}
-
-    return response.json()
 
 def barGen(barCount):
     barCSS = ""
@@ -81,12 +85,13 @@ def makeSVG(data):
     contentBar = "".join(["<div class='bar'></div>" for i in range(barCount)])
     barCSS = barGen(barCount)
 
-    if data == {}:
+    if data == {} or data.get("album") == None:
         content_bar = ""
         recent_plays = recentlyPlayed()
         size_recent_play = len(recent_plays["items"])
         idx = random.randint(0, size_recent_play - 1)
         item = recent_plays["items"][idx]["track"]
+        raise Exception('teste')
     else:
         item = data["item"]
 
