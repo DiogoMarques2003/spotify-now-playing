@@ -97,6 +97,7 @@ def makeSVG(data):
     img = loadImageB64(item["album"]["images"][1]["url"])
     artistName = item["artists"][0]["name"].replace("&", "&amp;")
     songName = item["name"].replace("&", "&amp;")
+    redirectUrl = item["external_urls"]["spotify"]
 
     dataDict = {
         "content_bar": contentBar,
@@ -104,6 +105,7 @@ def makeSVG(data):
         "artist_name": artistName,
         "song_name": songName,
         "img": img,
+        "url": redirectUrl,
     }
 
     return render_template("spotify.html.j2", **dataDict)
