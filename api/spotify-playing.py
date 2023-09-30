@@ -85,7 +85,7 @@ def makeSVG(data):
     contentBar = "".join(["<div class='bar'></div>" for i in range(barCount)])
     barCSS = barGen(barCount)
 
-    if data == {} or data.get("album") == None:
+    if data == {} or data.get("item") == None:
         content_bar = ""
         recent_plays = recentlyPlayed()
         size_recent_play = len(recent_plays["items"])
